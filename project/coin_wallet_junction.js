@@ -1,1 +1,0 @@
-console.log("COIN WALLET JUNCT LOADED");

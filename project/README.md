@@ -1,2 +1,0 @@
-# hesstry.github.io
-website
