@@ -1,0 +1,1 @@
+console.log("WALLETS JS LOADED");
