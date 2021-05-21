@@ -1,0 +1,53 @@
+<div class="explanation">THIS IS THE CUSTOMERS PAGE WITH TABLE OF ALL CUSTOMERS</div>
+
+<div class="table_div">
+  <table class="market">
+    <thead>
+      <tr>
+        <th>INSERT / UPDATE</th>
+      </tr>
+    </thead>
+      <tr>
+        <td>
+          <form method="POST" action="/customers">
+            <label for="email">email:</label><br>
+            <input type="text" name="email"><br>
+            <label for="password">password:</label><br>
+            <input type="text" name="password"><br>
+            <label for="phone_number">phone_number:</label><br>
+            <input type="phone_number" name="phone_number"><br>
+            <label for="trading_password">trading_password:</label><br>
+            <input type="text" name="trading_password"><br>
+            <input type="submit" value="INSERT">
+          </form>
+        </td>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<br>
+
+<div class="table_div">
+  <table class="customers">
+    <thead>
+        <tr>
+            <th>customer_id</th>
+            <th>email</th>
+            <th>password</th>
+            <th>phone_number</th>
+            <th>trading_password</th>
+        </tr>
+    </thead>
+      {{#each customers}}
+      <tr>
+        <td>{{customer_id}}</td>
+        <td>{{email}}</td>
+        <td>{{password}}</td>
+        <td>{{phone_number}}</td>
+        <td>{{trading_password}}</td>
+        <td id={{customer_id}}><button>UPDATE</td>
+      </tr>
+      {{/each}}
+    </table>
+</div>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+	<title>Demo Page</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    {{#each jsscripts}}
+    <script src="/static/{{this}}"></script>
+    {{/each}}
+</head>
+<body>
+<ul class="navbar">
+    <li><a href="coins">Coins</a></li>
+    <li><a href="coin_wallet">Coin_Wallet</a></li>
+    <li><a class="active" href="wallets">Wallets</a></li>
+    <li><a href="orders">Orders</a></li>
+    <li><a href="customers">Customers</a></li>
+</ul>
+	{{{body}}}
+</body>
+</html>

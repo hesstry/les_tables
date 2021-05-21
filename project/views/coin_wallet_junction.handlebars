@@ -1,0 +1,105 @@
+<div class="explanation">THIS PAGE IS THE CONNECTION BETWEEN WALLETS AND COINS</div>
+
+{{!-- <div class="table_div">
+  <table class="coin_wallet_junction">
+    <thead>
+      <tr>
+        <th>SELECT FORM</th>
+        <th></th>
+        <th colspan="2">INSERT FORM</th>
+        <th></th>
+        <th>DELETE FORM</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>
+        <form class="coin_wallet_junction_select">
+          <label for="wallet_id">Wallet_id:</label><br>
+          <input type="number" id="wallet_id" name="wallet_id"><br>
+          <label for="coin_id">Coin_id:</label><br>
+          <input type="number" id="coin_id" name="coin_id"><br><br>
+          <input type="checkbox">Select/View All<br><br>
+          <input type="submit" id="SELECT" value="SELECT">
+        </form>
+      </td>
+      <td>
+        <form class="coin_wallet_junction_insert">
+          <td>
+            <label for="wallet_id">Wallet_id:</label><br>
+            <input type="number" id="wallet_id" name="wallet_id"><br>
+            <label for="customer_id">Customer_id:</label><br>
+            <input type="number" id="customer_id" name="customer_id"><br>
+            <label for="coin_id">Coin_id:</label><br>
+            <input type="number" id="coin_id" name="coin_id"><br>
+            <label for="balance">Balance:</label><br>
+            <input type="number" id="balance" name="balance"><br>
+            <br><br>
+          </td>
+          <td>
+            <label for="coin_id">Coin_id:</label><br>
+            <input type="number" id="coin_id" name="coin_id"><br>
+            <label for="ticker">Ticker:</label><br>
+            <input type="text" id="ticker" name="ticker"><br>
+            <label for="price">Price:</label><br>
+            <input type="number" id="price" name="price"><br>
+            <label for="chance_24hr">Change_24hr:</label><br>
+            <input type="number" id="change_24hr" name="change_24hr">
+            <br><br>
+            <input type="submit" id="INSERT" value="INSERT">
+          </td>
+          <td></td>
+        </form>
+      </td>
+      <td>
+        <form class="coin_wallet_junction_delete">
+          <label for="wallet_id">Wallet_id:</label><br>
+          <input type="number" id="wallet_id" name="wallet_id"><br>
+          <label for="coin_id">Coin_id:</label><br>
+          <input type="number" id="coin_id" name="coin_id">
+          <br><br><br><br>
+          <input type="submit" id="DELETE" value="DELETE">
+        </form>
+      </td>
+    </tr>
+  </table><br>
+</div><br> --}}
+
+<div>
+<h3> Wallets with a Coin </h3>
+    <form id="add_coin_wallet" action="/coin_wallet" method="post">
+    Coin: <select name='coin_id'>
+        {{#each coins}}
+          <option value={{coin_id}}>{{coin_id}}</option>
+        {{/each}}
+    </select>
+    <br>
+    Wallets:<select name="wallet_id"> 
+        {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
+        {{#each wallets}}
+        <option value={{wallet_id}}>{{wallet_id}}</option>
+        {{/each}}
+    </select><br>
+    <input type="submit" value="Submit">
+    </form>
+</div>
+<br/>
+<h3> List of Wallets with Coins </h3>
+<table>
+    <thead> 
+        <th>coin_id</th> 
+        <th>wallet_id</th> 
+    </thead> 
+    <tbody> 
+        {{#each coin_wallet}} 
+        <tr> 
+            <td>{{coin_id}}</td> 
+            <td>{{wallet_id}}</td>
+            {{!-- <td><button onclick="deletePeopleCert({{pid}},{{cid}})">Delete</button></td> --}}
+            {{!-- <td><a href='#' onclick='javascript: alert("You can implement it just like the Add form.")'>Update</a></td> --}}
+        </tr>
+        {{else}}
+        <b> No wallets with coins found! Grant some using the form. </b>
+        {{/each}} 
+
+    </tbody>
+</table> 

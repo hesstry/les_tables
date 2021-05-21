@@ -1,0 +1,38 @@
+<div class="explanation">THIS PAGE WILL BE A WALLET OVERVIEW FOR ACCOUNT</div>
+
+<div>
+<h3> Orders </h3>
+    <form id="add_wallet" action="/wallets" method="post">
+    Customers:<select name="customer_id"> 
+        {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
+        {{#each customers}}
+        <option value={{customer_id}}>{{customer_id}}</option>
+        {{/each}}
+    </select><br>
+    <br>
+    Balance:
+    <input type="number" name="balance"><br>
+    <input type="submit" value="Submit">
+    </form>
+</div>
+
+<br>
+
+<div class="table_div">
+<table class="wallet">
+    <thead>
+        <tr>
+            <th>wallet_id</th>
+            <th>customer_id</th>
+            <th>balance</th>
+        </tr>
+    </thead>
+        {{#each wallets}}
+        <tr>
+          <td>{{wallet_id}}</td>
+          <td>{{customer_id}}</td>
+          <td>{{balance}}</td>
+        </tr>
+      {{/each}}
+    </table>
+</div>

@@ -1,0 +1,75 @@
+<div class="explanation">THIS PAGE WILL BE A HISTORY OF ORDERS MADE WITH WALLETS</div>
+
+<div>
+<h3> Orders </h3>
+    <form id="add_order" action="/orders" method="post">
+    Coin: <select name='coin_id'>
+        {{#each coins}}
+          <option value={{coin_id}}>{{coin_id}}</option>
+        {{/each}}
+    </select>
+    <br>
+    Wallets:<select name="wallet_id"> 
+        {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
+        {{#each wallets}}
+        <option value={{wallet_id}}>{{wallet_id}}</option>
+        {{/each}}
+    </select><br>
+    <br>
+    Customers:<select name="customer_id"> 
+        {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
+        {{#each customers}}
+        <option value={{customer_id}}>{{customer_id}}</option>
+        {{/each}}
+    </select><br>
+    <br>
+    Type:
+        {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
+        <input type="radio" id="buy" name="type" value="0">
+        <label for="buy">Buy</label>
+        <input type="radio" id="sell" name="type" value="1">
+        <label for="sell">Sell</label><br>
+    <br>
+    Completed Status:
+            <input type="radio" id="active" name="completed" value="0">
+            <label for="active">Active</label>
+            <input type="radio" id="completed" name="completed" value="1">
+            <label for="completed">Completed</label><br>
+    Amount:
+    <input type="number" id="amount" name="amount"><br>
+    Time:
+    <input type="datetime-local" id="time" name="time"><br><br>
+    <input type="submit" value="Submit">
+    </form>
+</div>
+<br/>
+<h3> Orders </h3>
+
+<div class="table_div">
+<table class="orders">
+  <thead>
+    <tr>
+      <th>Order_id</th>
+      <th>Wallet_id</th>
+      <th>Customer_id</th>
+      <th>Type</th>
+      <th>Coin_id</th>
+      <th>Amount</th>
+      <th>Completed</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  {{#each orders}}
+    <tr>
+      <td>{{order_id}}</td>
+      <td>{{wallet_id}}</td>
+      <td>{{customer_id}}</td>
+      <td>{{type}}</td>
+      <td>{{coin_id}}</td>
+      <td>{{amount}}</td>
+      <td>{{completed}}</td>
+      <td>{{time}}</td>
+    </tr>
+  {{/each}}
+</table>
+</div>
