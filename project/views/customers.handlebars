@@ -19,6 +19,7 @@
             <label for="trading_password">trading_password:</label><br>
             <input type="text" name="trading_password"><br>
             <input type="submit" value="INSERT">
+            <div>{{error}}</div>
           </form>
         </td>
       </tr>
@@ -47,6 +48,7 @@
         <td>{{phone_number}}</td>
         <td>{{trading_password}}</td>
         <td id={{customer_id}}><button>UPDATE</td>
+        <td><button onclick="deleteCustomer({{customer_id}})">Delete</button></td>
       </tr>
       {{/each}}
     </table>

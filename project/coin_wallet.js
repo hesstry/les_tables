@@ -40,7 +40,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        //context.jsscripts = ["filtercoins.js"];
+        context.jsscripts = ["deleteCustomer.js"];
         var mysql = req.app.get('mysql');
         getCoins(res, mysql, context, complete);
         getWallets(res, mysql, context, complete);
@@ -64,15 +64,45 @@ module.exports = function(){
         var inserts = [req.body.coin_id, req.body.wallet_id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
         console.log("INSERT RESULTS: ", results);
+        // error handling
         if(error){
             console.log(JSON.stringify(error))
-            res.write(JSON.stringify(error));
-            res.end();
+            var callbackCount = 0;
+            var context = {};
+            context.error = "Error: No duplicates"
+            context.jsscripts = ["deleteCustomer.js"];
+            var mysql = req.app.get('mysql');
+            getCoins(res, mysql, context, complete);
+            getWallets(res, mysql, context, complete);
+            getCoinWallet(res, mysql, context, complete);
+            function complete(){
+                callbackCount++;
+                if(callbackCount >= 3){
+                    console.log(context);
+                    res.render('coin_wallet_junction', context);
+                }
+        }
         }else{
             res.redirect('/coin_wallet');
         }
         });
     });
+
+    router.delete('/:coin_id/:wallet_id', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM coin_wallet_junction WHERE coin_id = ? AND wallet_id = ?";
+        var inserts = [req.params.coin_id, req.params.wallet_id];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
 
     /*Display all people whose name starts with a given string. Requires web based javascript to delete users with AJAX */
 /*     router.get('/search/:s', function(req, res){

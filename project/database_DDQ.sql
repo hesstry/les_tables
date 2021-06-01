@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS `Coin_wallet_junction`;
-DROP TABLE IF EXISTS `Orders`;
-DROP TABLE IF EXISTS `Coins`;
-DROP TABLE IF EXISTS `Wallets`;
-DROP TABLE IF EXISTS `Customers`;
+DROP TABLE IF EXISTS `coin_wallet_junction`;
+DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `coins`;
+DROP TABLE IF EXISTS `wallets`;
+DROP TABLE IF EXISTS `customers`;
 
-CREATE TABLE `Customers` (
+CREATE TABLE `customers` (
     `customer_id` int(11) NOT NULL AUTO_INCREMENT,
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE `Customers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `Customers` (`email`, `password`, `phone_number`, `trading_password`)
+INSERT INTO `customers` (`email`, `password`, `phone_number`, `trading_password`)
 VALUES
     ('madler@msn.com', 'ts7MoX4VgAFErS', '505-344-7736', 'ts7MoX4VgAFErSTRADING'),
     ('fraser@comcast.net', 'hJoioW2IboSFNN', '315-354-2869', 'hJoioW2IboSFNNTRADING'),
@@ -24,16 +24,17 @@ VALUES
 
 
 
-CREATE TABLE `Wallets` (
+CREATE TABLE `wallets` (
     `wallet_id` int(11) NOT NULL AUTO_INCREMENT,
-    `customer_id` int(11) NOT NULL,
+    `customer_id` int(11) DEFAULT NULL,
     `balance` FLOAT DEFAULT 0.0 NOT NULL,
     PRIMARY KEY (`wallet_id`),
-    CONSTRAINT `wallets_customersFK` FOREIGN KEY (`customer_id`) REFERENCES `Customers` (`customer_id`)
+    CONSTRAINT `wallets_customersFK` 
+        FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `Wallets` (`customer_id`, `balance`)
+INSERT INTO `wallets` (`customer_id`, `balance`)
 VALUES
     (1, 10000.0),
     (2, 2000.0),
@@ -43,7 +44,7 @@ VALUES
 
 
 
-CREATE TABLE `Coins` (
+CREATE TABLE `coins` (
     `coin_id` int(11) NOT NULL AUTO_INCREMENT,
     `ticker` varchar(10) NOT NULL UNIQUE,
     `price` FLOAT NOT NULL,
@@ -52,7 +53,7 @@ CREATE TABLE `Coins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `Coins` (`ticker`, `price`, `change_24hr`)
+INSERT INTO `coins` (`ticker`, `price`, `change_24hr`)
 VALUES
     ('BTC', 49809.40, 12.05),
     ('ETH', 3759.09, 12.63),
@@ -77,24 +78,24 @@ VALUES
 
 
 
-CREATE TABLE `Orders` (
+CREATE TABLE `orders` (
     `order_id` int(11) NOT NULL AUTO_INCREMENT,
     `wallet_id` int(11) NOT NULL,
-    `customer_id` int(11) NOT NULL,
+    `customer_id` int(11) DEFAULT NULL,
     `type` BOOLEAN NOT NULL,
     `coin_id` int(11),
     `amount` int(100) NOT NULL,
     `completed` BOOLEAN NOT NULL,
     `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`order_id`),
-    CONSTRAINT `orders_walletsFK` FOREIGN KEY (`wallet_id`) REFERENCES `Wallets` (`wallet_id`),
-    CONSTRAINT `orders_customersFK` FOREIGN KEY (`customer_id`) REFERENCES `Customers` (`customer_id`),
-    CONSTRAINT `orders_coinsFK` FOREIGN KEY (`coin_id`) REFERENCES `Coins` (`coin_id`)
+    CONSTRAINT `orders_walletsFK` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`wallet_id`),
+    CONSTRAINT `orders_customersFK` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `orders_coinsFK` FOREIGN KEY (`coin_id`) REFERENCES `coins` (`coin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 SET time_zone='+00:00';
 
 
-INSERT INTO `Orders` (`wallet_id`, `customer_id`, `type`, `coin_id`, `amount`, `completed`)
+INSERT INTO `orders` (`wallet_id`, `customer_id`, `type`, `coin_id`, `amount`, `completed`)
 VALUES
     (1, 1, 0, 1, 1, 1),
     (1, 1, 1, 1, 1, 1),
@@ -110,16 +111,16 @@ VALUES
 
 
 
-CREATE TABLE `Coin_wallet_junction` (
+CREATE TABLE `coin_wallet_junction` (
     `coin_id` int(11) NOT NULL,
     `wallet_id` int(11) NOT NULL,
     PRIMARY KEY (`coin_id`, `wallet_id`),
-    CONSTRAINT `coin_wallet_juction_coinsFK` FOREIGN KEY (`coin_id`) REFERENCES `Coins` (`coin_id`),
-    CONSTRAINT `coin_wallet_junction_walletsFK` FOREIGN KEY (`wallet_id`) REFERENCES `Wallets` (`wallet_id`)
+    CONSTRAINT `coin_wallet_junction_coinsFK` FOREIGN KEY (`coin_id`) REFERENCES `coins` (`coin_id`),
+    CONSTRAINT `coin_wallet_junction_walletsFK` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`wallet_id`)
 );
 
 
-INSERT INTO `Coin_wallet_junction` (`coin_id`, `wallet_id`)
+INSERT INTO `coin_wallet_junction` (`coin_id`, `wallet_id`)
 VALUES
     (1, 1),
     (3, 2),

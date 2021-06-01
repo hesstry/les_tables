@@ -215,10 +215,23 @@ module.exports = function(){
         var inserts = [req.body.ticker, req.body.price, req.body.change_24hr];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
         console.log("INSERT RESULTS: ", results);
-        if(error){
+        if(req.body.ticker == " " || req.body.ticker == "" || error){
+            // render page with error notification
             console.log(JSON.stringify(error))
-            res.write(JSON.stringify(error));
-            res.end();
+            // res.write(JSON.stringify(error));
+            var callbackCount = 0;
+            var context = {};
+            context.error = "Error: Sorry please make sure ticker is filled and does not already exist."
+            context.jsscripts = ["filtercoins.js"];
+            var mysql = req.app.get('mysql');
+            getCoinsByChangeAscending(req,res, mysql, context, complete);
+            function complete(){
+                callbackCount++;
+                if(callbackCount >= 1){
+                    res.render('coins', context);
+                }
+            }
+            // res.end();
         }else{
             res.redirect('/coins');
         }

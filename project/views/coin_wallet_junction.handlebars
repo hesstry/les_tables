@@ -80,11 +80,12 @@
         {{/each}}
     </select><br>
     <input type="submit" value="Submit">
+    <div>{{error}}</div>
     </form>
 </div>
 <br/>
 <h3> List of Wallets with Coins </h3>
-<table>
+<table> 
     <thead> 
         <th>coin_id</th> 
         <th>wallet_id</th> 
@@ -94,6 +95,7 @@
         <tr> 
             <td>{{coin_id}}</td> 
             <td>{{wallet_id}}</td>
+            <td><button onclick="deleteCoinWallet({{coin_id}}, {{wallet_id}})">Delete</button></td>
             {{!-- <td><button onclick="deletePeopleCert({{pid}},{{cid}})">Delete</button></td> --}}
             {{!-- <td><a href='#' onclick='javascript: alert("You can implement it just like the Add form.")'>Update</a></td> --}}
         </tr>

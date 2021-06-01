@@ -18,7 +18,7 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        //context.jsscripts = ["filtercoins.js"];
+        context.jsscripts = ["deleteCustomer.js"];
         var mysql = req.app.get('mysql');
         getCustomers(res, mysql, context, complete);
         function complete(){
@@ -42,13 +42,40 @@ module.exports = function(){
         console.log("INSERT RESULTS: ", results);
         if(error){
             console.log(JSON.stringify(error))
-            res.write(JSON.stringify(error));
-            res.end();
+            var callbackCount = 0;
+            var context = {};
+            context.errorr = "Error";
+            context.jsscripts = ["deleteCustomer.js"];
+            var mysql = req.app.get('mysql');
+            getCustomers(res, mysql, context, complete);
+            function complete(){
+                callbackCount++;
+                if(callbackCount >= 1){
+                    console.log(context);
+                    res.render('customers', context);
+                }
+            }
         }else{
             res.redirect('/customers');
         }
         });
     });
+
+    router.delete('/:customer_id', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM customers WHERE customer_id = ?";
+        var inserts = [req.params.customer_id];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
 
     /*Display all people whose name starts with a given string. Requires web based javascript to delete users with AJAX */
 /*     router.get('/search/:s', function(req, res){

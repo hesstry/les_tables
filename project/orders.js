@@ -78,8 +78,22 @@ module.exports = function(){
         console.log("INSERT RESULTS: ", results);
         if(error){
             console.log(JSON.stringify(error))
-            res.write(JSON.stringify(error));
-            res.end();
+            var callbackCount = 0;
+            var context = {};
+            context.error = "Error";
+            //context.jsscripts = ["filtercoins.js"];
+            var mysql = req.app.get('mysql');
+            getCustomers(res, mysql, context, complete);
+            getWallets(res, mysql, context, complete);
+            getCoins(res, mysql, context, complete);
+            getOrders(res, mysql, context, complete);
+            function complete(){
+                callbackCount++;
+                if(callbackCount >= 4){
+                    console.log(context);
+                    res.render('orders', context);
+                }
+            }
         }else{
             res.redirect('/orders');
         }

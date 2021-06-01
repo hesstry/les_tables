@@ -13,6 +13,7 @@
     Balance:
     <input type="number" name="balance"><br>
     <input type="submit" value="Submit">
+    <div>{{error}}</div>
     </form>
 </div>
 
@@ -30,8 +31,13 @@
         {{#each wallets}}
         <tr>
           <td>{{wallet_id}}</td>
+          {{#if customer_id}}
           <td>{{customer_id}}</td>
+          {{else}}
+          <td>NULL</td>
+          {{/if}}
           <td>{{balance}}</td>
+          <td><a href="/wallets/{{wallet_id}}/{{customer_id}}" id="id{{wallet_id}}">UPDATE</a></td>
         </tr>
       {{/each}}
     </table>
