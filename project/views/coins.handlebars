@@ -3,22 +3,18 @@
 <div class="explanation">THIS PAGE WILL BE A COIN OVERVIEW WITH CLICKABLE COIN NAMES TO SEE THEIR INFO</div>
 
 <div class="table_div">
+  <h3> Insert Coin </h3>
   <table class="market">
-    <thead>
-      <tr>
-        <th>INSERT FORM</th>
-      </tr>
-    </thead>
       <tr>
         <td>
           <form method="POST" action="/coins">
             <label for="ticker">ticker:</label><br>
             <input type="text" name="ticker"><br>
             <label for="price">price:</label><br>
-            <input type="number" name="price"><br>
+            <input type="number" name="price" min="0"><br>
             <label for="change_24hr">change_24hr:</label><br>
             <input type="number" name="change_24hr"><br>
-            <input type="submit" value="INSERT">
+            <input class="button" type="submit" value="INSERT">
             <div>{{error}}</div>
           </form>
         </td>
@@ -31,13 +27,14 @@
 <br>
 
 <div class="table_div">
+<h3> Coins </h3>
 <table class="market">
   <thead>
     <tr>
       <th>coin_id</th>
-      <th>ticker<button id="increase" onclick="filterCoinsByNameAscending()">&#5123;</button><button id="decrease" onclick="filterCoinsByNameDescending()">&#5121;</button></th>
-      <th>price<button id="increase" onclick="filterCoinsByPriceAscending()">&#5123;</button><button id="decrease" onclick="filterCoinsByPriceDescending()">&#5121;</button></th>
-      <th>change_24hr<button id="increase" onclick="filterCoinsByChangeAscending()">&#5123;</button><button id="decrease" onclick="filterCoinsByChangeDescending()">&#5121;</button></th>
+      <th>ticker<button class="button" id="increase" onclick="filterCoinsByNameAscending()">&#5123;</button><button class="button" id="decrease" onclick="filterCoinsByNameDescending()">&#5121;</button></th>
+      <th>price<button class="button" id="increase" onclick="filterCoinsByPriceAscending()">&#5123;</button><button class="button" id="decrease" onclick="filterCoinsByPriceDescending()">&#5121;</button></th>
+      <th>change_24hr<button class="button" id="increase" onclick="filterCoinsByChangeAscending()">&#5123;</button><button class="button" id="decrease" onclick="filterCoinsByChangeDescending()">&#5121;</button></th>
     </tr>
   </thead>
   {{#each coins}}

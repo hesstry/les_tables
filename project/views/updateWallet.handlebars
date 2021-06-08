@@ -3,11 +3,11 @@
 <form id="updateWallet" action="/wallets/:wallet_id/" method="PUT">
     Customer ID: <select name="customer_id" id="customerSelector"> 
         {{#each customers}}
-            <option value="{{customer_id}}">{{customer_id}}</option>
+            <option value="{{customer_id}}">{{email}}</option>
         {{/each}}
     </select><br>
     Balance: <input type="number" name="balance" value="{{wallets.balance}}"><br>
 </form>
-<button onclick="updateWallet({{wallet.wallet_id}})">Update</button>
+<button class="button" onclick="updateWallet({{wallet.wallet_id}})">Update</button>
 {{!-- <script defer>selectPlanet({{person.homeworld}});</script> --}}
 </html>

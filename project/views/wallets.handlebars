@@ -1,18 +1,18 @@
 <div class="explanation">THIS PAGE WILL BE A WALLET OVERVIEW FOR ACCOUNT</div>
 
-<div>
-<h3> Orders </h3>
+<div class="table_div">
+<h3> Insert Wallet </h3>
     <form id="add_wallet" action="/wallets" method="post">
     Customers:<select name="customer_id"> 
         {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
         {{#each customers}}
-        <option value={{customer_id}}>{{customer_id}}</option>
+        <option value={{customer_id}}>{{email}}</option>
         {{/each}}
     </select><br>
     <br>
     Balance:
-    <input type="number" name="balance"><br>
-    <input type="submit" value="Submit">
+    <input type="number" name="balance" min="0"><br>
+    <input class="button" type="submit" value="Submit">
     <div>{{error}}</div>
     </form>
 </div>
@@ -20,6 +20,7 @@
 <br>
 
 <div class="table_div">
+<h3> Wallets </h3>
 <table class="wallet">
     <thead>
         <tr>
@@ -37,7 +38,7 @@
           <td>NULL</td>
           {{/if}}
           <td>{{balance}}</td>
-          <td><a href="/wallets/{{wallet_id}}/{{customer_id}}" id="id{{wallet_id}}">UPDATE</a></td>
+          <td><a href="/wallets/{{wallet_id}}" id="id{{wallet_id}}">UPDATE</a></td>
         </tr>
       {{/each}}
     </table>

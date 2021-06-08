@@ -64,12 +64,12 @@
   </table><br>
 </div><br> --}}
 
-<div>
-<h3> Wallets with a Coin </h3>
+<div class="table_div">
+<h3> Link Wallet and Coin </h3>
     <form id="add_coin_wallet" action="/coin_wallet" method="post">
     Coin: <select name='coin_id'>
         {{#each coins}}
-          <option value={{coin_id}}>{{coin_id}}</option>
+          <option value={{coin_id}}>{{ticker}}</option>
         {{/each}}
     </select>
     <br>
@@ -79,12 +79,14 @@
         <option value={{wallet_id}}>{{wallet_id}}</option>
         {{/each}}
     </select><br>
-    <input type="submit" value="Submit">
+    <input class="button" type="submit" value="Submit">
     <div>{{error}}</div>
     </form>
 </div>
 <br/>
-<h3> List of Wallets with Coins </h3>
+
+<div class="table_div">
+<h3> Wallets with Coins </h3>
 <table> 
     <thead> 
         <th>coin_id</th> 
@@ -105,3 +107,4 @@
 
     </tbody>
 </table> 
+</div>

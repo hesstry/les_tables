@@ -1,6 +1,7 @@
 <div class="explanation">THIS IS THE CUSTOMERS PAGE WITH TABLE OF ALL CUSTOMERS</div>
 
 <div class="table_div">
+<h3> Insert Customer </h3>
   <table class="market">
     <thead>
       <tr>
@@ -11,14 +12,14 @@
         <td>
           <form method="POST" action="/customers">
             <label for="email">email:</label><br>
-            <input type="text" name="email"><br>
+            <input type="email" name="email"><br>
             <label for="password">password:</label><br>
             <input type="text" name="password"><br>
             <label for="phone_number">phone_number:</label><br>
-            <input type="phone_number" name="phone_number"><br>
+            <input type="phone_number" name="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"><br>
             <label for="trading_password">trading_password:</label><br>
             <input type="text" name="trading_password"><br>
-            <input type="submit" value="INSERT">
+            <input class="button" type="submit" value="INSERT">
             <div>{{error}}</div>
           </form>
         </td>
@@ -30,6 +31,7 @@
 <br>
 
 <div class="table_div">
+<h3> Customers </h3>
   <table class="customers">
     <thead>
         <tr>
@@ -47,7 +49,6 @@
         <td>{{password}}</td>
         <td>{{phone_number}}</td>
         <td>{{trading_password}}</td>
-        <td id={{customer_id}}><button>UPDATE</td>
         <td><button onclick="deleteCustomer({{customer_id}})">Delete</button></td>
       </tr>
       {{/each}}

@@ -1,3 +1,5 @@
+// filter functions for the filtering on the coins page
+
 function filterCoinsByNameAscending() {
     //construct the URL and redirect to it
     window.location = '/coins/atoz'
