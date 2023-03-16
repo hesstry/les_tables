@@ -1,2 +1,2 @@
 # les_tables
-les tables son magnifique 
+les tables sont magnifique 
